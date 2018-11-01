@@ -1,25 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
+@extends('layout')
+
+@section('content')
 	<h1>Create a Project</h1>
 
 	<form action="/projects" method="POST">
 		{{ csrf_field() }}
 		<div>
-			<input type="text" name="title" placeholder="project title">
+			<input type="text" name="title" placeholder="project title" class="form-control {{ $errors->has('title') ? 'bg-danger' : '' }}" value="{{ old('title') }}">
 		</div>
 
 		<div>
-			<textarea name="description" id="" cols="30" rows="10" placeholder="Project description"></textarea>
+			<textarea name="description" id="" cols="30" rows="10" placeholder="Project description" class="form-control">{{ old('description') }}</textarea>
 		</div>
 
 		<div>
-			<button type="submit">Create Project</button>
+			<button type="submit" class="btn btn-primary">Create Project</button>
 		</div>
+		
+		@if ($errors->any())
+			<div class="notification alert alert-danger">
+				@foreach($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</div>
+		@endif
 	</form>
-</body>
-</html>
+@endsection
