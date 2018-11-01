@@ -7,8 +7,34 @@
 	@if ($project->tasks->count())
 		<div>
 			@foreach ($project->tasks as $task)
-				<li>{{ $task->description }}</li>
+				<div>
+					<form action="/tasks/{{ $task->id }}" method="POST" class="form-group">
+						@method('PATCH')
+						@csrf
+						<label for="">
+							<input type="checkbox" name="completed" id="" onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
+							{{ $task->description }}
+						</label>
+					</form>
+				</div>
 			@endforeach 
 		</div>
 	@endif
+
+	{{-- Add a new task form --}}
+	<form action="/projects/{{ $project->id }}/tasks" method="POST" class="form-group">
+		@csrf
+
+		<label for="">New Task</label>
+
+		<div>
+			<input type="text" name="description" id="" placeholder="New Task" class="form-control">
+		</div>
+
+		<div>
+			<button type="submit" class="btn btn-primary">Add Task</button>
+		</div>
+	</form>
+
+	@include('errors')
 @endsection
