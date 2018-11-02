@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    public function home() {
-    	return view('home', [
+    public function home1() {
+    	return view('home1', [
     		'key1' => 'value1',
     		'tasks' => [
 	 			'go to the store',
